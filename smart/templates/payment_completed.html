@@ -1,0 +1,46 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+
+<section id="main-content" style="min-height: 93vh">
+    <section class="wrapper">
+        <h3>Payment Completed works </h3>
+            <div class="row mt">
+                <div class="col-lg-10">
+                <div class="content-panel" style="padding: 10px">
+                     
+                    <section id="unseen">
+                      <table class="table table-bordered table-striped table-condensed" style="width:100%">
+                        <thead>
+                        <tr>
+                        <th>Sl:No</th>
+                        <th> User Name</th>
+                         <th>Address</th>
+                         <th>Phone</th>
+                        
+                        
+                        <!--<th>Action</th>-->
+                        </tr>
+  </thead>
+  <tbody>
+ 
+                        {% for d in data %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{d.user.name}}
+                            </td>
+                          <td>{{d.user.address}}</td>
+                            <td>{{d.user.phoneno}}</td>
+                        
+
+
+
+
+
+
+
+                                                  </td>
+                                                  {% endfor %}
+  
+</div>
+{% endblock %}

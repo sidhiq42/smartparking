@@ -1,0 +1,69 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+    <h5>Add Slots to the Plots</h5>
+    <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+        <thead>
+          <tr>
+            <th>Si:No</th>
+            <th>District</th>
+            <th>Place</th>
+            <th>Location</th>
+            <th>Total Area</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in datap %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{d.district}}</td>
+            <td>{{d.place}}</td>
+            <td>{{d.location}}</td>
+            <td>{{d.totalarea}}</td>
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Action
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item mt-0" data-bs-toggle="modal" data-bs-target="#add{{d.plotid}}">Add slots</a></li>
+                </ul>
+              </div>
+            </td>
+            <!-- add -->
+            <div class="modal fade" id="add{{d.plotid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" style="color: rgb(18, 1, 1);">Add Slot</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+                      action="{% url 'slot2' %}">
+                      {% csrf_token %}
+                      <input type="hidden" class="form-control" value="{{d.plotid}}" name="pid">
+                      <b>Solt name</b>
+                      <input class="form-control mt-2" type="text" name="t1" style="background-color: #fff;">
+                      <div class="box-content">
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success">Add</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--  -->
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

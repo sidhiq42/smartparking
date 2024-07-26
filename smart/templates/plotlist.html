@@ -1,0 +1,107 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <div class="col-lg-9 mb-4 order-1">
+        <h3>Plot list</h3>
+        <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Si:No</th>
+                <th>Provider Name</th>
+                <th>Provider Address</th>
+                <th>District</th>
+                <th>Place</th>
+                <th>Location</th>
+                <th>Total Area</th>
+                <th>Plan</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in data %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{d.provider.name}}</td>
+                <td>{{d.provider.address}}</td>
+                <td>{{d.district}}</td>
+                <td>{{d.place}}</td>
+                <td>{{d.location}}</td>
+                <td>{{d.totalarea}}</td>
+                <td><img src="../media/{{d.plan}}" alt="" height="50" width="70"/></td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Action
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item mt-0" data-bs-toggle="modal" data-bs-target="#approve{{d.plotid}}">Approve</a></li>
+                      <li><a class="dropdown-item mt-0" data-bs-toggle="modal" data-bs-target="#reject{{d.plotid}}">Reject</a></li>
+                    </ul>
+                  </div>
+                </td>
+                <!-- approve -->
+                <div class="modal fade" id="approve{{d.plotid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><h3>Approve Plot</h3></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <h4 class="modal-title custom_align" id="Heading" style="color:#d8727a">Are You Sure ?<br>You Need to Approve This Plot</h4>
+                        <br>
+                        <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+                          action="{% url 'approveplot' %}">
+                          {% csrf_token %}
+                          <input type="hidden" class="form-control" value="{{d.plotid}}" name="pid">
+                          <div class="box-content">
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Approve</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+                <!-- reject -->
+                <div class="modal fade" id="reject{{d.plotid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><h3>Reject Plot</h3></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <h4 class="modal-title custom_align" id="Heading" style="color:#d8727a">Are You Sure ?<br>You Need to Reject This Plot</h4>
+                        <br>
+                        <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+                          action="{% url 'rejectplot' %}">
+                          {% csrf_token %}
+                          <input type="text" class="form-control" value="{{d.plotid}}" name="pid">
+                          <div class="box-content">
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Reject</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+              </tr>
+              {% endfor%}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+    
+{% endblock %}

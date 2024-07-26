@@ -1,0 +1,92 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+    <h5>Booking List</h5>
+    <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+        <thead>
+          <tr>
+            <th>Sl:No</th>
+            <!--<th>Date</th>
+            <th>Entry Time</th>
+            <th>Exit Time</th>
+            <th>Vehicle Number</th>
+            <th>Vehicle Type</th>
+            <th>Hours</th>
+            <th>Amount</th>
+          <th>Location</th>-->
+            <th>User</th>
+            
+            <th>Vehicle Type</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in datab %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{d.user.name}}</td>
+          <!-- <td>{{d.plot.location}}</td>--> 
+            <td>{{d.slot.vehicle_type}}</td>
+           
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-info btn-flat">Action</button>
+                <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-bs-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a data-bs-toggle="modal" data-bs-target="#request-{{d.bookingid}}" href="#"><i
+                        class="fa fa-edit">&nbsp;&nbsp;Forward to staff</i></a></li>
+                  
+                </ul>
+              </div>
+              <div class="modal fade" id="request-{{d.bookingid}}" role="dialog" >
+                <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                  <h4 class="modal-title custom_align" id="Heading">Forward to staff</h4>
+                </div>
+                   <div class="modal-body">
+                   <br>
+                   <h3 class="modal-title custom_align" id="Heading" style="margin-left:200px;color: #333">Are You Sure Want To Forward to staff ?</h3>
+                   <br>
+                    <form class="form-horizontal" method="post" action="{% url 'bookapproval' %}">
+                   {% csrf_token %}
+                     <input type="hidden" class="form-control"  value="{{d.bookingid}}"  name="bookingid">
+                         
+                   <div class="box-content">
+                    
+                  <button  type="submit"  name="request" class="btn btn-success"><span class="glyphicon 
+                  glyphicon-ok-sign"></span>Submit</button>
+                      <button type="reset" class="btn btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>No</button>
+                                      
+                </div>								
+                </div>
+                
+                </form>
+                   <div class="modal-footer ">
+                  
+                </div> 
+                  </div>
+                <!-- /.modal-content --> 
+                </div>
+                </div>
+                
+                
+                
+                
+                                                                  </td>
+                  
+                </div>
+            </td>
+          </tr>
+          {% endfor%}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <div class="col-lg-9 mb-4 order-1">
+        <h3>Complaint list</h3>
+        <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Si:No</th>
+                <th>Date</th>
+                <th>name</th>
+                <th>Subject</th>
+                <th>Complaint</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in data %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{d.date}}</td>
+                <td>{{d.provider.name}}</td>
+                <td>{{d.subject}}</td>
+                <td>{{d.complaint}}</td>
+                <td>
+                  <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Action
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete">Delete</a></li>
+                    </ul>
+                  </div>
+                  </div>
+                </td>
+                  <!-- delete -->
+                  <div class="modal fade" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel"><h3>Reject Provider</h3></h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h4 class="modal-title custom_align" id="Heading" style="color:#d8727a">Are You Sure ?<br>You Need to Delete This Complaint</h4>
+                          <br>
+                          <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+                            action="{% url 'deletecomplaint' %}">
+                            {% csrf_token %}
+                            <input type="hidden" class="form-control" value="{{d.complaintid}}" name="cid">
+                            <div class="box-content">
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success">Delete</button>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  -->
+              </tr>
+              {% endfor%}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+    
+{% endblock %}

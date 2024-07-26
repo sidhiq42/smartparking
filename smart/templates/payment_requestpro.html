@@ -1,0 +1,194 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+
+<section id="main-content">
+  <section class="wrapper">
+    <div class="form-w3layouts">
+      <!-- page start-->
+      <!-- page start-->
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="table-agile-info">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Payment Request
+              </div>
+              <div>
+                <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'> <thead>
+          <tr>
+            <th>Sl:No</th>
+            
+<th>Message</th>
+
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in data %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>Please proceed to payment</td>
+            </td>
+           
+              <td><a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#request-{{d.bookingid}}" href="#" >Complete payment</a>
+              </td>
+
+
+                    </tr>
+                    <div class="modal fade" id="request-{{d.bookingid}}" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span
+                                class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            <h4 class="modal-title custom_align" id="Heading">Complete Payment</h4>
+                          </div>
+                          <div class="modal-body">
+
+                            <form class="form-horizontal" method="post" action="{% url 'payment_requestpro' %}"
+                              onsubmit="return validatePay(this)">
+                              {% csrf_token %}
+
+                              <input type="hidden" class="form-control" value="{{d.bookingid}}" name="lid" />
+                              <div class="row">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3"> Holder Name</div>
+                                <div class="col-xs-3"> <input type="text" class="form-control" name="holder"
+                                    title="Please enter your name in alphabet" /></div>
+                                <div class="col-xs-3"></div>
+                              </div>
+                              <div class="row ">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3"> Card Number</div>
+                                <div class="col-xs-3"> <input type="text" class="form-control" name="card"
+                                    /></div>
+
+                                <div class="col-xs-3"></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3">CVV</div>
+                                <div class="col-xs-3"> <input type="text" class="form-control" name="cvv" /></div>
+
+                                <div class="col-xs-3"></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3">Expire</div>
+                                <div class="col-xs-3"> <input type="text" class="form-control" value="{{d.bnk.exp}}" name="exp" required/>
+                                </div>
+
+                                <div class="col-xs-3"></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-xs-3"></div>
+                                <div class="col-xs-3">Amount To pay</div>
+                                <div class="col-xs-3"> <input type="text" class="form-control" value="{{d.slot.commission}}"
+                                    name="commission" readonly />
+                                </div>
+                                <div class="col-xs-3"></div>
+
+                              </div>
+                          </div>
+
+                          <div class="box-content">
+
+                            <button type="submit" name="request" class="btn btn-success pull-right "><span class="glyphicon 
+		glyphicon-ok-sign"></span>Pay</button>
+                            <button type="reset" class=" btn btn-danger " data-bs-dismiss="modal"><span
+                                class="glyphicon glyphicon-remove"></span>No</button>
+
+                          </div>
+                          </form>
+                        </div>
+
+
+                        <div class="modal-footer ">
+
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+              </div>
+
+              {% endfor %}
+              {% if datac == 0 %}
+
+              <tr>
+                <td colspan="8" style="text-align:center; color:black; "> NO DETAILS AVAILABLE</td>
+              </tr>
+
+              {% endif %}
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div style="height:290px;">
+    </div>
+    </div>
+  </section>
+</section>
+<script>
+  function validatePay(x) {
+    var name = /^[A-Za-z ]+$/;
+    var phone = /^[0-9]+$/;
+
+    if (x.holder.value == "") {
+      alert("Please enter Card holder's name");
+      x.holder.focus();
+      return false;
+    }
+    else if (!x.holder.value.match(name)) {
+      alert("Your card holder's name contain invalid characters");
+      x.holder.focus();
+      return false;
+    }
+    if (x.card.value == '') {
+			alert('Please enter your card number');
+			x.card.focus();
+			return false;
+		}
+		else if (!x.card.value.match(phone)) {
+			alert('Your card number contains invalid characters');
+			x.card.focus();
+			return false;
+		}
+		else if (x.card.value.length != 16) {
+			alert('Invalid card number');
+			x.card.focus();
+			return false;
+		}
+    if (x.cvv.value == '') {
+			alert('Please enter your cvv');
+			x.cvv.focus();
+			return false;
+		}
+		else if (!x.cvv.value.match(phone)) {
+			alert('Your cvv contains invalid characters');
+			x.cvv.focus();
+			return false;
+		}
+		else if (x.cvv.value.length != 3) {
+			alert('Invalid cvv');
+			x.cvv.focus();
+			return false;
+		}
+  }
+</script>
+{% endblock %}
+

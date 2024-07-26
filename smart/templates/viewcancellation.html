@@ -1,0 +1,49 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+    <h5>Cancelled Booking List</h5>
+    <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+        <thead>
+          <tr>
+            <th>Si:No</th>
+            <th>Date</th>
+            <th>Entry Time</th>
+            <th>Exit Time</th>
+            <th>Vehicle Type</th>
+            <th>Hours</th>
+            <th>Amount</th>
+            <th>Username</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in dataf %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{d.batch}}</td>
+            <td>{{d.course.name}}</td>
+            <td>{{d.fee}}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-info btn-flat">Action</button>
+                <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a data-toggle="modal" data-target="#edit-{{d.feesid}}" href="#"><i
+                        class="fa fa-edit">&nbsp;&nbsp;Edit</i></a></li>
+                  <li><a data-toggle="modal" data-target="#delete-{{d.feesid}}" href="#"><i
+                        class="fa fa-trash-o">&nbsp;&nbsp;Delete</i></a></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          {% endfor%}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <div class="col-lg-9 mb-4 order-1">
+        <h3>Users list</h3>
+        <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+            <thead>
+              <tr>
+                <th><b>Si:No</b></th>
+                <th><b>Name</b></th>
+                <th><b>Address</b></th>
+                <th><b>Mobile No</b></th>
+                <th><b>E-mail</b></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in data %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{d.name}}</td>
+                <td>{{d.address}}</td>
+                <td>{{d.phoneno}}</td>
+                <td>{{d.mailid}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+    
+{% endblock %}

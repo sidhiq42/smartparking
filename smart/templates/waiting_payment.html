@@ -1,0 +1,47 @@
+{% extends "home.html" %}
+{% load static %}
+{% block content %}
+
+
+<section id="main-content" style="min-height: 93vh">
+    <section class="wrapper">
+        <h3>Waiting for payment</h3>
+            <div class="row mt">
+                <div class="col-lg-10">
+                <div class="content-panel" style="padding: 10px">
+                     
+                    <section id="unseen">
+                      <table class="table table-bordered table-striped table-condensed" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Sl:No</th>
+                            <th>Customer</th>
+                            <th>Vehicle Number</th>
+                            <th>Vehicle Type</th>
+                            
+                          <th>Service</th>
+                                   
+                                        
+          
+                            
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for d in data %}
+                          <tr>
+                              <td>{{forloop.counter}}</td>
+                              <td>{{d.customer.user_name}}</td>
+                              <td>{{d.vehicle.vehicle_no}}</td>
+                              <td>{{d.vehicle.vehicle_type}}</td>
+                              <td>{{d.service.service_type}}</td>
+                        </tr>
+                      {% endfor %}								
+                      </tbody>
+                    </table>
+                    </section>
+            </div><!-- /content-panel -->
+         </div><!-- /col-lg-4 -->	
+        </div><!-- /row -->
+      </section>
+  </section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <div class="col-lg-9 mb-4 order-1">
+        <h3>Commission list</h3>
+        <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Sl:No</th>
+                <th>Provider name</th>
+                <th>Amount</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in data %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{d.plot.location}}</td>
+                <td>{{d.slot.commission}}</td>
+                <td>{{d.fee}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-info btn-flat">Action</button>
+                    <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a data-toggle="modal" data-target="#edit-{{d.feesid}}" href="#"><i
+                            class="fa fa-edit">&nbsp;&nbsp;Edit</i></a></li>
+                      <li><a data-toggle="modal" data-target="#delete-{{d.feesid}}" href="#"><i
+                            class="fa fa-trash-o">&nbsp;&nbsp;Delete</i></a></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              {% endfor%}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+    
+{% endblock %}

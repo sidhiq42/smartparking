@@ -1,0 +1,94 @@
+{% extends "home.html" %}
+{% load static %}
+{% block content %}
+
+<section id="main-content" style="min-height: 93vh">
+    <section class="wrapper">
+        <h3>Completed Jobs by Staff</h3>
+            <div class="row mt">
+                <div class="col-lg-10">
+                <div class="content-panel" style="padding: 10px">
+                     
+                    <section id="unseen">
+                      <table class="table table-bordered table-striped table-condensed" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Sl:No</th>
+                            <th>Customer</th>
+                            <th>Vehicle Number</th>
+                            <th>Vehicle Type</th>
+                            
+                          <th>Service</th>
+                                   
+                                        
+          
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for d in data %}
+                          <tr>
+                              <td>{{forloop.counter}}</td>
+                              <td>{{d.customer.user_name}}</td>
+                              <td>{{d.vehicle.vehicle_no}}</td>
+                              <td>{{d.vehicle.vehicle_type}}</td>
+                              <td>{{d.service.service_type}}</td>
+                            <td><a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#request-{{d.book_id}}" href="#" >Request for payment</a>
+                                                  </td>
+  
+</div>
+
+
+<div class="modal fade" id="request-{{d.book_id}}" role="dialog" >
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+    <div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+  <h4 class="modal-title custom_align" id="Heading">Request For Payment</h4>
+</div>
+   <div class="modal-body">
+   <br>
+   <h3 class="modal-title custom_align" id="Heading" style="margin-left:200px;color: #333">Are You Sure Want To Request For Payment ?</h3>
+   <br>
+    <form class="form-horizontal" method="post" action="{% url 'request_payment'%}">
+   {% csrf_token %}
+     <input type="hidden" class="form-control"  value="{{d.book_id}}"  name="lid">
+         
+   <div class="box-content">
+    
+  <button  type="submit"  name="request" class="btn btn-success"><span class="glyphicon 
+  glyphicon-ok-sign"></span>Submit</button>
+      <button type="reset" class="btn btn-default pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>No</button>
+                      
+</div>								
+</div>
+
+</form>
+   <div class="modal-footer ">
+  
+</div> 
+  </div>
+<!-- /.modal-content --> 
+</div>
+</div>
+
+
+
+
+                                                  </td>
+  
+</div>
+
+                        </tr>
+                    {% endfor %}							
+                      </tbody>
+                    </table>
+                    </section>
+            </div><!-- /content-panel -->
+         </div><!-- /col-lg-4 -->		   
+        </div><!-- /row -->
+      </section>
+  </section>
+
+
+{% endblock %}

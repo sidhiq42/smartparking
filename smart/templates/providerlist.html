@@ -1,0 +1,108 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+      <div class="col-lg-9 mb-4 order-1">
+        <h3>Provider list</h3>
+        <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Si:No</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>District</th>
+                <th>Contact 1</th>
+                <th>Contact 2</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for d in data %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{d.name}}</td>
+                <td>{{d.address}}</td>
+                <td>{{d.district}}</td>
+                <td>{{d.contact1}}</td>
+                <td>{{d.contact2}}</td>
+                <td>{% if d.status != "waiting" %}
+                  {{d.status}}
+                  {% endif %}
+                  {% if d.status == "waiting" %}
+                  <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      Action
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#approve{{d.providerid}}">Approve</a></li>
+                      <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#reject{{d.providerid}}">Reject</a></li>
+                    </ul>
+                  </div>
+                  </div>
+                  {% endif %}
+                </td>
+                <!-- Approve -->
+                <div class="modal fade" id="approve{{d.providerid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><h3>Approve Provider</h3></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <h4 class="modal-title custom_align" id="Heading" style="color:#d8727a">Are You Sure ?<br>You Need to Approve This Provider</h4>
+                        <br>
+                        <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+                          action="{% url 'approvepro' %}">
+                          {% csrf_token %}
+                          <input type="hidden" class="form-control" value="{{d.providerid}}" name="pid">
+                          <div class="box-content">
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Approve</button>
+                            </div>
+                          </div>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+                 <!-- Reject -->
+                 <div class="modal fade" id="reject{{d.providerid}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><h3>Reject Provider</h3></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <h4 class="modal-title custom_align" id="Heading" style="color:#d8727a">Are You Sure ?<br>You Need to Reject This Provider</h4>
+                        <br>
+                        <form class="form-horizontal" method="post" name="myForm" onsubmit=""
+                          action="{% url 'rejectpro' %}">
+                          {% csrf_token %}
+                          <input type="hidden" class="form-control" value="{{d.providerid}}" name="pid">
+                          <div class="box-content">
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-success">Reject</button>
+                            </div>
+                          </div>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
+              </tr>
+              {% endfor%}
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+    
+{% endblock %}

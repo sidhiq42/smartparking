@@ -1,0 +1,120 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+ 
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: rgb(99, 39, 120);
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #682773
+}
+
+.profile-button:focus {
+    background: #682773;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #682773;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}b{
+  font-size: 17px;
+}
+</style>
+{% for d in datap %}
+<div class="container rounded bg-white mt-6 mb-5" style="padding: 80px;">
+  <div class="row">
+      <div class="col-md-3 border-right">
+          <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">{{request.session.username}}</span><span> </span></div>
+      </div>
+      <div class="col-md-7 ms-3">
+          <div class="p-3 py-3">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h3 class="text-right" style="color: rgb(173, 159, 159);">Edit Profile</h3>
+              </div>
+              <form method="post" action="{% url 'updateprof' %}" onsubmit="">
+                {% csrf_token %}
+                <input type="hidden" class="form-control" style="background-color: #e9ecef;" value="{{d.providerid}}" name="providerid">
+                <div class="row">
+                  <div class="col">
+                    <label><b>Name</b></label>
+                    <input type="text" class="form-control" style="background-color: #e9ecef;" value="{{d.name}}" name="t1">
+                  </div>
+                  <div class="col ms-5">
+                    <label><b>Address</b></label>
+                    <textarea type="text" class="form-control" style="background-color: #e9ecef;" placeholder="Enter password" name="t2">{{d.address}}</textarea>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col">
+                    <label><b>Contact1</b></label>
+                    <input type="text" class="form-control" style="background-color: #e9ecef;" value="{{d.contact1}}" placeholder="Enter email" name="t3">
+                  </div>
+                  <div class="col ms-5">
+                    <label><b>Contact2</b></label>
+                    <input type="text" class="form-control" style="background-color: #e9ecef;" value="{{d.contact2}}" placeholder="Enter password" name="t4">
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col">
+                    <label><b>District</b></label>
+                    <select class="form-control" name="t5">
+                      <option value="kollam">Kollam</option>
+                  <option value="trivandrum">Trivandrum</option>
+                  <option value="alappuzha">Alappuxha</option>
+                  <option value="idukki">Idukki</option>
+                  <option value="thrissur">Thrissur</option>
+                  <option value="wayanad">Wayanad</option>
+                  <option value="kannur">kannur</option>
+                  <option value="kasargode">kasargode</option>
+                  <option value="Malappuram">Malppuram</option>
+                  <option value="ernakulam">Ernakulam</option>
+                  <option value="palakkad">pallakad</option>
+                  <option value="kozhikode">Kozhikode</option>
+                  <option value="pathanamthitta">Pathanamthitta</option>
+                  <option value="kottayam">Kottayam</option>
+                  </select>
+                  </div>
+                  <div class="col ms-5">
+                    <label><b>Location</b></label>
+                    <input type="text" class="form-control" style="background-color: #e9ecef;" value="{{d.location}}" placeholder="Enter password" name="t6">
+                  </div>
+                </div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Update Profile</button></div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+</div>
+{% endfor %}
+
+{% endblock %}

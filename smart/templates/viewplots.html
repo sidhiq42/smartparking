@@ -1,0 +1,35 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid pt-4 px-4">
+    <h5>Plot List</h5>
+    <table class="table table-bordered table-striped table-condensed table table-bordered" style="width:100%;" style="width:100%;">
+        <thead>
+          <tr>
+            <th>Si:No</th>
+            <th>District</th>
+            <th>Place</th>
+            <th>Location</th>
+            <th>Total Area</th>
+            <th>Plan</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in datap %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{d.district}}</td>
+            <td>{{d.place}}</td>
+            <td>{{d.location}}</td>
+            <td>{{d.totalarea}}</td>
+            <td><img src="../media/{{d.plan}}" alt="" height="50" width="70"/></td>
+            <td>{{d.status}}</td>
+          </tr>
+          {% endfor%}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

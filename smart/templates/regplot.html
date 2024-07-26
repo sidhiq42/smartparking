@@ -1,0 +1,167 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+    .form-control,.form-select:valid {
+  background-color:  #fff!important;
+}.inp{
+    width: 30%;
+    margin-left: 130px;
+}.area{
+    width: 30%;
+}.plan{
+    width: 30%;
+    margin-left: 137px;
+}.loc{
+    width: 30%;
+    margin-left: 106px;
+}.pla{
+    width: 30%;
+    margin-left: 132px;
+}.dis{
+    width: 30%;
+    margin-left: 87px;
+}.form-check-input{
+    background-color: #fff;
+}.rt{
+    margin-left: 92px;
+}.two{
+    margin-left: 64px;
+}.four{
+    margin-left:59px; 
+}.three{
+    margin-left:50px; 
+}.t{
+    margin-left: 20px;
+}.tt{
+    margin-left: 95px;
+}.cc{
+    margin-left: 42px;
+}.bu{
+    margin-left: 40%;
+}
+</style>
+
+<div class="container-fluid pt-4 px-4">
+    <h3>Register Plot</h3><hr>
+    <form method="post" onsubmit="" enctype="multipart/form-data" action="{% url 'plot' %}">
+        {% csrf_token %}
+    <div class="row g-3 align-items-center ms-5">
+        <div class="col-auto ms-5">
+          <label class="col-form-label ms-3"><b>District:</b></label>
+        </div>
+        <div class="col-auto dis">
+          <!-- <input  type="password" id="inputPassword6" class="form-control ms-3" aria-describedby="passwordHelpInline"> -->
+          <select class="form-select ms-5" name="t1" aria-label="Default select example">
+            <option selected>---select---</option>
+            <option value="kollam">Kollam</option>
+            <option value="trivandrum">Trivandrum</option>
+            <option value="alappuzha">Alappuxha</option>
+            <option value="idukki">Idukki</option>
+            <option value="thrissur">Thrissur</option>
+            <option value="wayanad">Wayanad</option>
+            <option value="kannur">kannur</option>
+            <option value="kasargode">kasargode</option>
+            <option value="Malappuram">Malppuram</option>
+            <option value="ernakulam">Ernakulam</option>
+            <option value="palakkad">pallakad</option>
+            <option value="kozhikode">Kozhikode</option>
+            <option value="pathanamthitta">Pathanamthitta</option>
+            <option value="kottayam">Kottayam</option>
+          </select>
+        </div>
+    </div>
+    
+    <div class="row g-3 align-items-center ms-5 mt-2">
+        <div class="col-auto ms-5">
+          <label class="col-form-label ms-3"><b>Location:</b></label>
+        </div>
+        <div class="col-auto loc">
+          <input  type="text" name="t3" class="form-control ms-3">
+        </div>
+    </div>
+    <div class="row g-3 align-items-center ms-5 mt-2">
+        <div class="col-auto ms-5">
+          <label class="col-form-label ms-3"><b>Total Area(sq.ft):</b></label>
+        </div>
+        <div class="col-auto area ms-5">
+          <input  type="text" name="t4" class="form-control ms-3">
+        </div>
+    </div>
+    <div class="row g-3 align-items-center ms-5 mt-2">
+        <div class="col-auto ms-5">
+          <label class="col-form-label ms-3"><b>Plan:</b></label>
+        </div>
+        <div class="col-auto plan">
+          <input  type="file" name="file" class="form-control ms-3">
+        </div>
+    </div>
+    
+    <div class="row g-3 align-items-center ms-5 mt-4">
+        <div class="col-auto ms-5">
+          <label class="col-form-label ms-3"><b>Vehicle type</b></label>
+        </div>
+        <div class="col-auto rt">
+            <label  class="col-form-label ms-5"><b>Rate/hour</b></label>
+        </div>
+        <div class="col-auto tt">
+            <label  class="col-form-label ms-5"><b>Total Capacity</b></label>
+        </div>
+        <div class="col-auto cc">
+            <label class="col-form-label ms-5"><b>Commission Percentage</b></label>
+        </div>
+    </div>
+    <div class="row g-3 align-items-center ms-5 mt-0">
+        <div class="col-auto form-check ms-5">
+          <input class="form-check-input" type="checkbox" value="Two wheeler" name="two">
+          <label class="col-form-label ms-3"><b>Two wheeler</b></label>
+        </div>
+        <div class="col-auto two">
+            <input  type="number" name="t9" class="form-control">
+        </div>
+        <div class="col-auto t">
+            <input  type="number" name="t12" class="form-control" >
+        </div>
+        <div class="col-auto t">
+            <input  type="number" name="t15" class="form-control">
+        </div>
+    </div>
+    <div class="row g-3 align-items-center ms-5 mt-0">
+        <div class="col-auto form-check three">
+            <input class="form-check-input" type="checkbox" value="Three wheeler" name="three">
+          <label class="col-form-label ms-3"><b>Three wheeler</b></label>
+        </div>
+        <div class="col-auto three">
+            <input  type="number" name="t10" class="form-control">
+        </div>
+        <div class="col-auto t">
+            <input  type="number" name="t13" class="form-control">
+        </div>
+        <div class="col-auto t">
+            <input  type="number" name="t16" class="form-control">
+        </div>
+    </div>
+    <div class="row g-3 align-items-center ms-5 mt-0">
+        <div class="col-auto form-check ms-5">
+          <input class="form-check-input" type="checkbox" value="Four wheeler" name="four">
+          <label class="col-form-label ms-3"><b>Four wheeler</b></label>
+        </div>
+        <div class="col-auto four">
+            <input  type="number" name="t11" class="form-control">
+        </div>
+        <div class="col-auto t">
+            <input  type="number" name="t14" class="form-control">
+        </div>
+        <div class="col-auto t">
+            <input  type="number" name="t17" class="form-control">
+        </div>
+    </div>
+    <div class="mt-3 py-3 bu">
+        <button class="btn btn-success btn-sm text" type="submit">Submit</button>
+        <button class="btn btn-danger btn-sm ms-3 text" type="reset">Reset</button>
+    </div>
+    </form>
+</div>
+
+{% endblock %}

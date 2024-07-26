@@ -1,0 +1,53 @@
+{% extends "admin.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+  form{
+    background-color: #d9e8f5;
+  }.bt{
+    margin-left: 100px;
+  }
+</style>
+
+<div class="container-xxl flex-grow-1 container-p-y ">
+  <div class="row">
+    <div class="col-lg-9 mb-4 order-1">
+      <div class="row g-3 ms-1 mt-2" style="background-color: rgb(214 196 196);">
+        <div class="col-5 ms-3">
+          <h4>Change Password</h4>
+        </div>
+      </div>
+      <form class="row g-3 ms-1 mt-1" action="{% url 'change' %}" onsubmit="return privacy(this)" method="post">
+        {% csrf_token %}
+        <div class="ms-5 mt-3" >
+        <div class="col-auto ms-5">
+          <label for="staticEmail2"><b>Old Password:</b></label>
+        </div>
+        <div class="col-auto ms-5 mt-2">
+          <input type="password" class="form-control w-50" name="t1" placeholder=" Enter Old Password">
+        </div></div>
+        <div class="ms-5 mt-4" >
+          <div class="col-auto ms-5">
+            <label for="staticEmail2"><b>New Password:</b></label>
+          </div>
+          <div class="col-auto ms-5 mt-2">
+            <input type="password" class="form-control w-50" name="t2" placeholder=" Enter New Password">
+          </div></div>
+          <div class="ms-5 mt-4" >
+            <div class="col-auto ms-5">
+              <label for="staticEmail2"><b>Re-enter New Password:</b></label>
+            </div>
+            <div class="col-auto ms-5 mt-2">
+              <input type="password" class="form-control w-50" name="t3" placeholder=" Re-Enter New Password">
+            </div></div>
+            <div class="mt-2 py-4 bt">
+              <button class="btn btn-success btn-sm " type="submit">Submit</button>
+              <button class="btn btn-danger btn-sm ms-3" type="reset">Reset</button></div>
+            </div></div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

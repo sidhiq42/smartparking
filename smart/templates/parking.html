@@ -1,0 +1,34 @@
+{% extends "provider.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .in{
+        margin-left: 5%;
+    }
+    .dt{
+        margin-left: 24%;
+    }.bt{
+        margin-left: 10px;
+    }
+</style>
+
+<div class="container-fluid pt-4 px-4">
+    <h5>Parking List</h5><hr>
+    <form class="row g-3 ms-1 mt-1 py-3" action="" onsubmit="" method="post">
+        {% csrf_token %}
+        <div class="row g-3 align-items-center ms-5 mt-2">
+          <div class="col-auto dt">
+            <label for="inputPassword6" class="col-form-label ms-3"><b style="font-size: 20px;">Date:</b></label>
+          </div>
+          <div class="col-auto sub in">
+            <input style="background-color: #fff;width:300px ;" type="date" id="inputPassword6" class="form-control w-px-40 ms-3">
+          </div>
+        </div>
+        <div class="mt-4 py-3 bt text-center">
+            <button class="btn btn-success text btn-sm " type="submit">Submit</button>
+            <button class="btn btn-danger text btn-sm ms-3" type="reset">Reset</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

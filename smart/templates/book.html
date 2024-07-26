@@ -1,0 +1,147 @@
+{% extends "user.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="d-flex align-items-center justify-content-center mt-5 me-5">
+        <form action="{% url 'search'  %}" submit="" method="post" style="margin-right: 12%;" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3>Search Parking slots</h3>
+            <fieldset id="payment_method">
+                <legend class="ms-2 fs-6 mt-3">Vehicle Type</legend>
+                <div class="fieldgroup">
+                <input type="radio" name="vehicle"value="Two Wheeler"><label>Two wheeler
+                </label>
+                </div>
+                <div class="fieldgroup">
+                <input type="radio" name="vehicle"value="Three Wheeler"><label>Three wheeler</label>
+                </div>
+                <div class="fieldgroup">
+                    <input type="radio" name="vehicle"value="Four Wheeler"><label>Four wheeler</label>
+                    </div>
+            </fieldset>
+
+          <div class="mb-3 form-control-sm mt-3">
+            <label for="loginInputEmail" class="form-label">Select District</label>
+            <select class="form-select form-control" name="district" id="district" style="width: 155%;">
+              
+                <option value="select">--Select--</option>
+                <option value="kollam">Kollam</option>
+            <option value="trivandrum">Trivandrum</option>
+            <option value="alappuzha">Alappuxha</option>
+            <option value="idukki">Idukki</option>
+            <option value="thrissur">Thrissur</option>
+            <option value="wayanad">Wayanad</option>
+            <option value="kannur">kannur</option>
+            <option value="kasargode">kasargode</option>
+            <option value="Malappuram">Malppuram</option>
+            <option value="ernakulam">Ernakulam</option>
+            <option value="palakkad">pallakad</option>
+            <option value="kozhikode">Kozhikode</option>
+            <option value="pathanamthitta">Pathanamthitta</option>
+            <option value="kottayam">Kottayam</option>
+            </select>
+          </div>
+         
+          <div class="mb-3 form-control-sm">
+            <label for="selectAccountType" class="form-label">Select location</label>
+            <select class="form-select form-control" name="location" id="location" style="width: 155%;">
+              <option selected>--Select--</option>
+            {% for d in datap %}
+            <option value="{{d.location}}">{{d.location}}</option>
+            {% endfor %}
+            </select>
+          </div>
+         
+          <button type="submit" class="btn btn-secondary ms-2 mt-3">Search</button>
+        </form>
+    </div>
+    
+
+    <!-- Footer Start -->
+    
+                  
+
+    <!-- Footer End -->
+ <!-- JavaScript Libraries -->
+ <script>
+    function sh(st)
+ {
+ 
+ var x=new XMLHttpRequest();
+ x.onreadystatechange=function(){
+ 
+ if(x.readyState==4&&x.status==200)
+ {
+ 
+ document.getElementById('district').innerHTML=x.responseText;
+ }
+ };
+ 
+ x.open("GET","getDistrict/?name="+st,true);
+ 
+ x.send();
+ 
+ }
+ 
+  function shi(st)
+ {
+ 
+ var x=new XMLHttpRequest();
+ x.onreadystatechange=function(){
+ 
+ if(x.readyState==4&&x.status==200)
+ {
+ 
+ document.getElementById('districtw').innerHTML=x.responseText;
+ }
+ };
+ 
+ x.open("GET","getDistrict/?id="+st,true);
+ 
+ x.send();
+ 
+ }
+ function shl(st)
+ {
+ 
+ var x=new XMLHttpRequest();
+ x.onreadystatechange=function(){
+ 
+ if(x.readyState==4&&x.status==200)
+ {
+ 
+ document.getElementById('location1').innerHTML=x.responseText;
+ 
+ }
+ };
+ 
+ x.open("GET","get_location/?id="+st,true);
+ 
+ x.send();
+ 
+ }
+ function shu(st)
+ {
+ 
+ var x=new XMLHttpRequest();
+ x.onreadystatechange=function(){
+ 
+ if(x.readyState==4&&x.status==200)
+ {
+ 
+ document.getElementById('location').innerHTML=x.responseText;
+ 
+ }
+ };
+ 
+ x.open("GET","get_location/?id="+st,true);
+ 
+ x.send();
+ 
+ }
+ </script>
+
+ <!-- Template Javascript -->
+ <script src="{% static 'index/js/main.js' %}"></script>
+{% endblock %}
